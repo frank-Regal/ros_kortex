@@ -21,7 +21,7 @@
     <arg name="left_gripper" default=""/>
 
     <!-- Kortex API options -->
-    <arg name="left_ip_address" default="192.168.1.10"/>
+    <arg name="left_ip_address" default="192.168.1.61"/>
     <arg name="left_username" default="admin"/>
     <arg name="left_password" default="admin"/>
     <arg name="left_cyclic_data_publish_rate" default="$(arg cyclic_data_publish_rate)"/> <!--Hz-->

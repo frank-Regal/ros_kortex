@@ -331,6 +331,11 @@ void KortexArmDriver::verifyProductConfiguration()
     // Retrieve the Product Configuration
     Kinova::Api::ProductConfiguration::CompleteProductConfiguration product_config = m_base->GetProductConfiguration();
     
+
+    std::cout << "END_EFFECTOR_TYPE_ROBOTIQ_2F_85: " << Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_ROBOTIQ_2F_85 << std::endl;
+    std::cout << "END_EFFECTOR_TYPE_NOT_INSTALLED: " << Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_NOT_INSTALLED << std::endl;
+    std::cout << "END_EFFECTOR_TYPE_ROBOTIQ_2F_140: " << Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_ROBOTIQ_2F_140 << std::endl;
+    std::cout << "END_EFFECTOR_TYPE_L31_GRIPPER_2F" << Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_L31_GRIPPER_2F << std::endl;
     // Compare arm model (ModelId)
     if (m_arm_name == "gen3")
     {
@@ -367,43 +372,50 @@ void KortexArmDriver::verifyProductConfiguration()
     // Compare gripper type (EndEffectorType)
     if (!isGripperPresent())
     {
+        std::cout << "Gripper Name: " << m_gripper_name << std::endl;
         if (product_config.end_effector_type() != Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_NOT_INSTALLED)
         {
-            std::string error_string = "The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
+            std::string error_string = "A) The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
             ROS_ERROR("%s", error_string.c_str());
             throw new std::runtime_error(error_string);
         }
     }
     else if (m_gripper_name == "robotiq_2f_85")
     {
+        std::cout << "Gripper Name: " << m_gripper_name << std::endl;
         if (product_config.end_effector_type() != Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_ROBOTIQ_2F_85)
         {
-            std::string error_string = "The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
+            std::cout << "Config Type: " << product_config.end_effector_type() << std::endl;
+            std::cout << "Config Compare: " << Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_ROBOTIQ_2F_85 << std::endl;
+            std::string error_string = "B) The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
             ROS_ERROR("%s", error_string.c_str());
             throw new std::runtime_error(error_string);
         }
     }
     else if (m_gripper_name == "robotiq_2f_140")
     {
+        std::cout << "Gripper Name: " << m_gripper_name << std::endl;
         if (product_config.end_effector_type() != Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_ROBOTIQ_2F_140)
         {
-            std::string error_string = "The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
+            std::string error_string = "C) The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
             ROS_ERROR("%s", error_string.c_str());
             throw new std::runtime_error(error_string);
         }
     }
     else if (m_gripper_name == "gen3_lite_2f")
     {
+        std::cout << "Gripper Name: " << m_gripper_name << std::endl;
         if (product_config.end_effector_type() != Kinova::Api::ProductConfiguration::EndEffectorType::END_EFFECTOR_TYPE_L31_GRIPPER_2F)
         {
-            std::string error_string = "The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
+            std::string error_string = "D) The gripper model specified in the launch file doesn't match the detected arm's gripper model, shutting down the node...";
             ROS_ERROR("%s", error_string.c_str());
             throw new std::runtime_error(error_string);
         }
     }
     else 
     {
-        std::string error_string = "The gripper model specified in the launch file is not supported, shutting down the node...";
+        std::cout << "Gripper Name: " << m_gripper_name << std::endl;
+        std::string error_string = "E) The gripper model specified in the launch file is not supported, shutting down the node...";
         ROS_ERROR("%s", error_string.c_str());
         throw new std::runtime_error(error_string);
     }
